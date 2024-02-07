@@ -109,15 +109,17 @@ const Post = ({ post, token, setNewPost }) => {
           <h4>{post.full_name}</h4>
           <p className="post-time">{date}</p>
         </div>
-        <button className='options' onClick={handleOptions}>...</button>
-        {showOptions && (
-            <div className='post-options-menu'>
-                <textarea value={editedPost} onChange={(e) => setEditedPost(e.target.value)} />
-                <button onClick={handleEditPost}>Edit</button>
-                <button onClick={handleDeletePost}>Delete</button>
-            </div>  
-        )}
       </div>
+      {post.user_id == id && (<button className='options-button' onClick={handleOptions}>
+        <img className="options-button-image" src="src/assets/three-dots.svg" alt="" />
+      </button>)}
+      {showOptions && (
+          <div className='post-options-menu'>
+              <textarea value={editedPost} onChange={(e) => setEditedPost(e.target.value)} />
+              <button onClick={handleEditPost}>Edit</button>
+              <button onClick={handleDeletePost}>Delete</button>
+          </div>  
+      )}
       <div className="post-content">
         <article>{post.message}</article>
         {post.image != undefined ? ( <img src={post.image} className="post-image"/>): null} 

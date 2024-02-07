@@ -89,7 +89,9 @@ const Comment = ({ comment_data, setNewComment }) => {
                     <p className=''>{date}</p>
                 </div>
                 {comment_data.user_id == id && (
-                <button className='options' onClick={handleOptions}>...</button>
+                <button className='options' onClick={handleOptions}>
+                    <img className="options-button-image" src="src/assets/three-dots.svg" alt="" />
+                </button>
                 )}
                 {showOptions && (
                     <div className='options-menu'>
