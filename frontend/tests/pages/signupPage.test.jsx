@@ -1,11 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";
-
 import { SignupPage } from "../../src/pages/Signup/SignupPage";
+
 
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
@@ -20,16 +19,18 @@ vi.mock("../../src/services/authentication", () => {
   return { signup: signupMock };
 });
 
+
 // Reusable function for filling out signup form
 const completeSignupForm = async () => {
   const user = userEvent.setup();
 
-  const nameInputEl = screen.getAllByLabelText("Full name:")
+
+  const nameInputEl = screen.getByLabelText("Full name:")
   const emailInputEl = screen.getByLabelText("Email:");
   const passwordInputEl = screen.getByLabelText("Password:");
   const submitButtonEl = screen.getByRole("submit-button");
 
-  await user.type(nameInputEl, "test name");
+  await user.type(nameInputEl, "test name")
   await user.type(emailInputEl, "test@email.com");
   await user.type(passwordInputEl, "1234");
   await user.click(submitButtonEl);
