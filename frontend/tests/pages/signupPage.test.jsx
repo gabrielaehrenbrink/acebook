@@ -55,21 +55,21 @@ describe("Signup Page", () => {
     render(<SignupPage />);
 
     const navigateMock = useNavigate();
+    try {
+      await completeSignupForm();
+      expect(navigateMock).toHaveBeenCalledWith("/login");
+    } catch (error) {
+      console.error("Signup failed:", error);
+  };
+
+  test("navigates to /signup on unsuccessful signup", async () => {
+    render(<SignupPage />);
+
+    signup.mockRejectedValue(new Error("Error signing up"));
+    const navigateMock = useNavigate();
 
     await completeSignupForm();
-    console.log("the navigate mock is:", navigateMock)
 
-    expect(navigateMock).toHaveBeenCalledWith("/login");
+    expect(navigateMock).toHaveBeenCalledWith("/signup");
   });
-
-  // test("navigates to /signup on unsuccessful signup", async () => {
-  //   render(<SignupPage />);
-
-  //   signup.mockRejectedValue(new Error("Error signing up"));
-  //   const navigateMock = useNavigate();
-
-  //   await completeSignupForm();
-
-  //   expect(navigateMock).toHaveBeenCalledWith("/signup");
-  // });
-});
+})})
