@@ -23,7 +23,7 @@ export const submitComment = async (comment, token) => {
   return data;
 };
 
-export const getAllCommentsForAPost = async (token, post_id) => {
+export const getAllCommentsForAPost = async (token, post_id, loadCycle) => {
   const requestOptions = {
     method: "GET",
     headers: {
@@ -32,7 +32,7 @@ export const getAllCommentsForAPost = async (token, post_id) => {
   };
 
   const response = await fetch(
-    `${BACKEND_URL}/comments/${post_id}`,
+    `${BACKEND_URL}/comments/${post_id}/${loadCycle}`,
     requestOptions
   );
 
@@ -92,13 +92,16 @@ export const likeComment = async (commentId, token) => {
 
 export const getAllLikesByCommentId = async (commentId, token) => {
   try {
-    const response = await fetch(`${BACKEND_URL}/comments/likes/${commentId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${BACKEND_URL}/comments/likes/all/${commentId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Network response was not ok");

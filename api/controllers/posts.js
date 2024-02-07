@@ -6,6 +6,12 @@ const mongoose = require("mongoose");
 
 const getAllPosts = async (req, res) => {
   try {
+    const pageNumber = req.params.loadCycle || 1;
+    const postLoadLimit = 3;
+    const pageLimit = pageNumber * postLoadLimit;
+
+    const totalPosts = await Post.countDocuments();
+
     const posts = await Post.aggregate([
       {
         $lookup: {
@@ -22,6 +28,19 @@ const getAllPosts = async (req, res) => {
         },
       },
       {
+        $addFields: {
+          createdAt: {
+            $ifNull: ["$createdAt", new Date("2024-02-01T16:05:55.034+00:00")],
+          }, // If createdAt is null, set it to the current date
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $limit: pageLimit, // Limit the number of posts per page
+      },
+      {
         $project: {
           _id: 1,
           message: 1,
@@ -33,7 +52,7 @@ const getAllPosts = async (req, res) => {
       },
     ]);
     const token = generateToken(req.user_id);
-    res.status(200).json({ posts, token });
+    res.status(200).json({ posts, token, totalPosts });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
