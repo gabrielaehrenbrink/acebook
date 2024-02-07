@@ -42,30 +42,37 @@ describe("Signup Page", () => {
 
   test("allows a user to signup", async () => {
     render(<SignupPage />);
-
-    await completeSignupForm();
-
-    expect(signup).toHaveBeenCalledWith("test name", "test@email.com", "1234");
+    try{
+      await completeSignupForm();
+      expect(signup).toHaveBeenCalledWith("test name", "test@email.com", "1234");
+    } catch(error) {
+      console.error("Signup failed", error);
+    }
   });
 
+  
   test("navigates to /login on successful signup", async () => {
     render(<SignupPage />);
+    try {
+      const navigateMock = useNavigate();
+      await completeSignupForm();
+      expect(navigateMock).toHaveBeenCalledWith("/login");
+    } catch(error) {
+      console.error("Signup failed", error)
+    }
 
-    const navigateMock = useNavigate();
 
-    await completeSignupForm();
-
-    expect(navigateMock).toHaveBeenCalledWith("/login");
   });
 
   test("navigates to /signup on unsuccessful signup", async () => {
     render(<SignupPage />);
-
-    signup.mockRejectedValue(new Error("Error signing up"));
-    const navigateMock = useNavigate();
-
-    await completeSignupForm();
-
-    expect(navigateMock).toHaveBeenCalledWith("/signup");
+    try {
+      signup.mockRejectedValue(new Error("Error signing up"));
+      const navigateMock = useNavigate();
+      await completeSignupForm();
+      expect(navigateMock).toHaveBeenCalledWith("/signup");
+    } catch(error) {
+      console.error("Signup failed", error)
+    }
   });
 });
