@@ -5,6 +5,7 @@ import "./comment.css"
 import { deleteComment } from '../../services/comments';
 import { getAllLikesByCommentId, likeComment } from '../../services/comments';
 import { calculateTimeSincePost } from '../dateTimeLogic';
+import { editComment } from '../../services/comments';
 
 const Comment = ({ comment_data, setNewComment }) => {
     const [showOptions, setShowOptions] = useState(false)
@@ -16,15 +17,17 @@ const Comment = ({ comment_data, setNewComment }) => {
     const [isLiked, setIsLiked] = useState(false);
     const [numberOfLikes, setNumberOfLikes] = useState(0);
     const [date, setDate] = useState(null)
+    const [editedComment, setEditedComment] = useState(comment_data.message);
+
 
     const handleDeleteComment = async () => {
         try {
             await deleteComment(token, comment_data._id);
             console.log("Comment deleted");
             setNewComment(true)
-          } catch (error) {
+        } catch (error) {
             console.error("Error deleting comment", error);
-          }
+        }
     }
 
     useEffect(() => {
@@ -39,6 +42,25 @@ const Comment = ({ comment_data, setNewComment }) => {
         };
         fetchLikes()
     }, [isLiked])
+
+
+    const handleEditComment = async () => {
+        try {
+            if (!token) {
+                console.error("Token not found in local storage");
+                return;
+            }
+
+            await editComment(token, comment_data._id, editedComment);
+            console.log("Comment Successfully Edited!")
+            setNewComment(true);
+        } catch (error) {
+            console.error("Error Editing Comment:", error);
+            console.log("Error Editing Comment!")
+        }
+    }
+
+
 
     const handleLikeClick = async () => {
         try {
@@ -71,7 +93,8 @@ const Comment = ({ comment_data, setNewComment }) => {
                 )}
                 {showOptions && (
                     <div className='options-menu'>
-                        <button>Edit</button>
+                        <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
+                        <button onClick={handleEditComment}>Edit</button>
                         <button onClick={handleDeleteComment}>Delete</button>
                     </div>
                 )}

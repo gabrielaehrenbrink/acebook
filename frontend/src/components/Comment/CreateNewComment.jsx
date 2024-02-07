@@ -12,6 +12,7 @@ const CreateNewComment = (props) => {
     const [token, setToken] = useState(window.localStorage.getItem("token"))
     const id = window.localStorage.getItem("id")
     const [error, setError] = useState()
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -61,6 +62,7 @@ const CreateNewComment = (props) => {
                     placeholder="Write a comment..."
                     rows={1}
                     ref={textAreaRef}
+                    required={true}
                 />
                 <button type="submit">Submit Comment!</button>
             </form>

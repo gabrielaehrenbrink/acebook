@@ -17,6 +17,7 @@ export const FeedPage = () => {
   const [postChanged, setPostChanged] = useState(false);
   const navigate = useNavigate();
   const id = window.localStorage.getItem("id")
+  const [newPost, setNewPost] = useState(false)
 
   const [totalPosts, setTotalPosts] = useState(0)
   const [loadCycle, setLoadCycle] = useState(1)
@@ -93,7 +94,7 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-     
+    
       <div className="allposts">
         <br></br>
         <br></br>
@@ -102,7 +103,7 @@ export const FeedPage = () => {
         <h2>Posts</h2>
         <div className="feed" role="feed">
           {[...posts].map((post) => (
-              <Post post={post} key={post._id} token={token} />
+              <Post post={post} key={post._id} token={token} setNewPost={setPostChanged}/>
           ))}
         </div>
       </div>

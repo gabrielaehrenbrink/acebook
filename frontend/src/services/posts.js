@@ -107,3 +107,53 @@ export const createPost = async (token, formData) => {
   const data = await response.json();
   return data;
 };
+
+
+
+export const deletePost = async (token, id) => {
+  const requestOptions = {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  console.log(`Deleting post with ID: ${id}`);
+  const response = await fetch(`${BACKEND_URL}/posts/${id}`, requestOptions);
+
+  if (response.status !== 200) {
+    const errorText = await response.text();
+    throw new Error(
+      `Unable to delete post. Status: ${response.status}, Message: ${errorText}`
+    );
+  }
+
+  const deletedPost = await response.json();
+  return deletedPost;
+};
+
+
+
+export const editPost = async (token, id, editedPost) => {
+  const requestOptions = {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ post: editedPost }),
+  };
+  console.log(`Editing post with id: ${id}`);
+  const response = await fetch(`${BACKEND_URL}/posts/${id}`, requestOptions)
+
+  if (response.status !== 200) {
+    throw new Error(
+      "Failed to update post"
+    );
+  }
+
+  const updatedPostData = await response.json();
+  return updatedPostData;
+
+};
+
+

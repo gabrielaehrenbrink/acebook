@@ -1,4 +1,4 @@
-// api/controllers/comments.js
+    // api/controllers/comments.js
 
 const Comment = require("../models/comment");
 const mongoose = require("mongoose");
@@ -53,54 +53,91 @@ const getAllCommentsByPostID = async (req, res) => {
   }
 };
 
-const submitComment = async (req, res) => {
-  try {
-    const { userId, commentText } = req.body;
-    const postId = req.body.postId;
+    const submitComment = async (req, res) => {
+    try {
+        const { userId, commentText } = req.body;
+        const postId = req.body.postId;
 
-    const comment = new Comment({
-      post_id: postId,
-      message: commentText,
-      user_id: userId,
-    });
+        const comment = new Comment({
+        post_id: postId,
+        message: commentText,
+        user_id: userId,
+        });
 
-    comment
-      .save()
-      .then((comment) => {
-        res
-          .status(201)
-          .json({ message: "Comment created successfully", comment: comment });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Internal Server Error" });
-  }
-};
+        comment
+        .save()
+        .then((comment) => {
+            res
+            .status(201)
+            .json({ message: "Comment created successfully", comment: comment });
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Internal Server Error" });
+    }
+    };
 
-const deleteComment = async (req, res) => {
-  const { id } = req.params;
-  console.log("Trying to delete: " + id);
-  try {
-    const deletedComment = await Comment.deleteOne({
-      _id: new mongoose.Types.ObjectId(id),
-    });
-    res.json({
-      message: "Comment has been deleted successfully",
-      deletedComment,
-    });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error: " + error });
-  }
-};
+    const deleteComment = async (req, res) => {
+    const { id } = req.params;
+    console.log("Trying to delete: " + id);
+    try {
+        const deletedComment = await Comment.deleteOne({
+        _id: new mongoose.Types.ObjectId(id),
+        });
+        res.json({
+        message: "Comment has been deleted successfully",
+        deletedComment,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Error: " + error });
+    }
+    };
 
-const CommentsController = {
-  submitComment: submitComment,
-  getAllCommentsByPostID: getAllCommentsByPostID,
-  deleteComment: deleteComment,
-};
 
-module.exports = CommentsController;
+    const editComment = async (req, res) => {
+        try {
+            const commentId = req.params.id
+            const commentText = req.body.comment
+
+            console.log(commentText)
+            console.log(commentId)
+            
+            if (!commentId) {
+                return res.status(400).json({ message: "Comment ID is required to edit a comment!"});
+            }
+
+            if (!commentText) {
+                return res.status(400).json({ message: "Updated comment is required to edit!"})
+            }
+
+            const updatedComment = await Comment.findByIdAndUpdate(
+                commentId,
+                {message: commentText},
+                {new: true }
+            );
+
+            if (!updatedComment) {
+                return res.status(400).json({ message: "`Comment not found!"});
+            }
+    
+            res.status(200).json({ message: "Comment Updated Successfully!", updatedComment});
+
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Internal server error"});
+        }
+
+    }
+
+    const CommentsController = {
+    submitComment: submitComment,
+    getAllCommentsByPostID: getAllCommentsByPostID,
+    deleteComment: deleteComment,
+    editComment: editComment,
+    };
+
+    module.exports = CommentsController;
