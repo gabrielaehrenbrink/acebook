@@ -12,7 +12,7 @@ describe("Home Page", () => {
       </BrowserRouter>
     );
 
-    const heading = screen.getByRole("heading");
+    const heading = screen.getByRole("heading", { name: /Welcome to Acebook/i, className: "welcome-heading" });
     expect(heading.textContent).toEqual("Welcome to Acebook!");
   });
 
