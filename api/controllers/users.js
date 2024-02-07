@@ -22,6 +22,7 @@ const getUser = async (req, res) => {
   }
 };
 
+
 const create = async (req, res) => {
   try {
     let profile_pic = "";

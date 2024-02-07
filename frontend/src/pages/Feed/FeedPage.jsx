@@ -3,10 +3,10 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getPosts } from "../../services/posts";
-import Post from "../../components/Post";
+import Post from "../../components/Post/Post";
 import Navbar from "../../components/Navbar/Navbar"; 
 import "./FeedPage.css";
-import CreateNewPost from "../../components/CreateNewPost";
+import CreateNewPost from "../../components/Post/CreateNewPost";
 import { getUser } from "../../services/users";
 
 export const FeedPage = () => {
@@ -34,7 +34,7 @@ export const FeedPage = () => {
           window.localStorage.setItem("token", data.token);
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
         });
       getUser(token, id)
         .then((data) => {
@@ -64,7 +64,7 @@ export const FeedPage = () => {
           window.localStorage.setItem("token", data.token);
         })
         .catch((err) => {
-          console.err(err);
+          console.error(err);
         });
     }
   }, [postChanged])

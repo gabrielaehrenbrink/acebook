@@ -1,3 +1,5 @@
+// frontend/src/services/users.js
+
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
 
 export const getUser = async (token, id) => {

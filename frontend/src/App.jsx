@@ -1,3 +1,5 @@
+// frontend/src/App.jsx
+
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import { HomePage } from "./pages/Home/HomePage";
@@ -27,7 +29,7 @@ const router = createBrowserRouter([
     element: <FeedPage />,
   },
   {
-    path: "/profile",
+    path: "/profile/:userId",
     element: <ProfilePage />,
   },
   {

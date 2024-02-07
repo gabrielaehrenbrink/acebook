@@ -1,8 +1,65 @@
-## Acebook MERN Template
+## Acebook 
 
-In this project, you are task with working on an existing application. A
-significant part of the challenge will be to familiarise yourself with the
-codebase you've inherited, as you work to **improve and extend** it.
+Acebook is a full-featured social networking web application inspired by Facebook, built using the MERN stack (MongoDB, Express.js, React, Node.js). It aims to replicate core functionalities of Facebook, providing users with an intuitive platform for connecting and sharing with friends and family.
+
+## Features 
+
+- User Authentication (Sign Up, Log In, Log Out)
+- Profile Customization (Profile Picture, name, email, about me)
+- Posts (Create, Edit, Delete Posts)
+- Comments & Like (CRUD)
+- Friends System (Send Friend Requests, Accept/Reject Requests)
+- Responsive Design for all devices
+<!-- - Real-time Notifications -->
+
+
+## Built With
+
+- MongoDB - Database
+- Express.js - Web Application Framework
+- React - Frontend Library
+- Node.js - JavaScript Runtime
+
+
+## Authors (Team)
+
+- Demetrius Vissarion - https://github.com/demetriusvissarion
+- Thomas Mazzag - https://github.com/TomMazzag
+- Gabriela Ehrenbrink - https://github.com/gabrielaehrenbrink/
+- Jehoshua - https://github.com/AVJehoshua
+- Fawaz Tarar - https://github.com/Fawaztarar
+
+
+
+## Acknowledgments
+
+This project wouldn't have been possible without the collective effort and dedication of our entire team. Each member brought unique skills and perspectives that enriched the development of Acebook, making it not just a project, but a learning journey for all of us
+
+- Team Spirit: A huge shoutout to every team member for their unwavering commitment
+
+- Collaborative Learning: Special thanks to everyone for creating an environment where learning from one another was not just encouraged but became a part of our daily routine. The shared knowledge has been invaluable.
+
+- Problem-Solving: Kudos to the team for not shying away from challenges. Tackling each obstacle head-on and turning them into opportunities for growth has been inspiring
+
+- Support and Encouragement: Gratitude to each team member for the support and motivation provided throughout the project. Whether it was debugging, design feedback, or just a word of encouragement, it made all the difference.
+
+- Special Thanks to Claire Castanet (Technical Coach at Makers): Claire's insights and constructive feedback have not only helped us overcome numerous technical challenges but have also contributed significantly to our growth as developers.
+
+## Contributing
+
+<!-- Please read CONTRIBUTING.md for details on our code of conduct, and the process for submitting pull requests to us. -->
+
+
+## Getting Started
+
+These instructions will help you set up a copy of Acebook running on your local machine for development and testing purposes.
+
+## Prerequisites
+
+- Node.js
+- MongoDB
+- Git
+
 
 ### Important after adding a new module / Check after commits
 
@@ -29,9 +86,18 @@ It's recommended you all read the suggested docs _after making sure the whole
 setup below worked for everyone_. Then work together on a diagram describing how
 the application works.
 
-### Card wall
+### Trello
 
-REPLACE THIS TEXT WITH A LINK TO YOUR CARD WALL
+https://trello.com/b/7rxgh5Ru/earthteamacebookmern
+
+### Excalidraw
+https://excalidraw.com/#room=e115eb6edcbdeb8825e3,kac4R5E5jjeYdOzmObmeXA
+
+### Miro
+https://miro.com/app/board/uXjVNznJ0RY=/
+
+### Team Charter
+https://docs.google.com/document/d/1jghTv3mIVKXAueXtq8aNkR4giNgNY8sVf-ct_ZhpC7U/edit
 
 ### Quickstart
 
@@ -53,9 +119,8 @@ If you haven't already, make sure you have node and NVM installed.
 
 ### Set up your project
 
-1. Have one team member fork this repository
-2. Rename the fork to `acebook-<team name>`
-3. Every team member clone the fork to their local machine
+
+3. Developer can fork to their local machine
 4. Install dependencies for both the `frontend` and `api` applications:
    ```
    cd frontend
@@ -122,13 +187,18 @@ In a new terminal session...
 ```
 
 You should now be able to open your browser and go to
-`http://localhost:3000/signup` to create a new user.
+`http://localhost:5173` .
 
 Then, after signing up, you should be able to log in by going to
-`http://localhost:3000/login`.
+`http://localhost:5173/login`.
 
 After logging in, you won't see much but you can create posts using PostMan and
 they should then show up in the browser if you refresh the page.
+
+
+
+
+
 
 # Guide for using Git/GitHub
 
@@ -150,22 +220,6 @@ git checkout main
 git pull origin main
 ```
 
-For example:
-```shell
-➜  makers-007-engineering-project-1 git:(story-2-list-spaces) git checkout main
-Switched to branch 'main'
-Your branch is up to date with 'origin/main'.
-➜  makers-007-engineering-project-1 git:(main) git pull
-remote: Enumerating objects: 66, done.
-remote: Counting objects: 100% (62/62), done.
-remote: Compressing objects: 100% (28/28), done.
-remote: Total 42 (delta 23), reused 33 (delta 14), pack-reused 0
-Unpacking objects: 100% (42/42), 9.66 KiB | 309.00 KiB/s, done.
-From https://github.com/JonnySB/makers-007-engineering-project-1
-   e548da6..086f6bf  branch_user_story1 -> origin/branch_user_story1
-   f245360..eb5efea  story_7            -> origin/story_7
-Already up to date.
-```
 
 ## 3. Checkout to your branch and merge it with the main branch
 
@@ -177,70 +231,15 @@ git fetch
 git merge origin/main
 ```
 
-For example:
-```shell
-➜  makers-007-engineering-project-1 git:(main) git checkout story-2-list-spaces
-Switched to branch 'story-2-list-spaces'
-Your branch is up to date with 'origin/story-2-list-spaces'.
-➜  makers-007-engineering-project-1 git:(story-2-list-spaces) git fetch
-➜  makers-007-engineering-project-1 git:(story-2-list-spaces) git merge origin/main
-Merge made by the 'ort' strategy.
- lib/booking.py        | 15 +++++++++++++--
- lib/users.py          | 12 ++++++++++++
- tests/test_booking.py | 19 +++++++++++++++++++
- 3 files changed, 44 insertions(+), 2 deletions(-)
- create mode 100644 lib/users.py
- create mode 100644 tests/test_booking.py
-```
 
 ## 4. Retest all your code with the new changes from main
 
-Once you've merged your branch with the main, open your virtual environment and retest all your code with **pytest** and also **checking the html pages are working appropriately**.
+Once you've merged your branch with the main, open your virtual environment and retest all your code and also **checking the html pages are working appropriately**.
 
-For example:
-```shell
-➜  makers-007-engineering-project-1 git:(story-2-list-spaces) pipenv shell
-Launching subshell in virtual environment...
- . /Users/mattwshepherd/.local/share/virtualenvs/makers-007-engineering-project-1-Tkx7Kyu9/bin/activate
-➜  makers-007-engineering-project-1 git:(story-2-list-spaces)  . /Users/mattwshepherd/.local/share/virtualenvs/makers-007
--engineering-project-1-Tkx7Kyu9/bin/activate
-(makers-007-engineering-project-1) ➜  makers-007-engineering-project-1 git:(story-2-list-spaces) pytest
-================================================== test session starts ==================================================
-platform darwin -- Python 3.11.2, pytest-7.4.3, pluggy-1.3.0
-rootdir: /Users/mattwshepherd/Documents/MakersCode/06_engineering_project_1/makers-007-engineering-project-1
-plugins: xprocess-0.23.0, playwright-0.4.3, base-url-2.0.0
-collected 8 items
-
-tests/test_app.py .                                                                                               [ 12%]
-tests/test_booking.py ..                                                                                          [ 37%]
-tests/test_database_connection.py .                                                                               [ 50%]
-tests/test_space.py ...                                                                                           [ 87%]
-tests/test_space_repository.py .                                                                                  [100%]
-
-=================================================== 8 passed in 1.90s ==================================================
-➜  makers-007-engineering-project-1 git:(story-2-list-spaces)  . /Users/mattwshepherd/.local/share/virtualenvs/makers-007
--engineering-project-1-Tkx7Kyu9/bin/activate
-(makers-007-engineering-project-1) ➜  makers-007-engineering-project-1 git:(story-2-list-spaces) python app.py
- * Serving Flask app 'app'
- * Debug mode: on
-WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on http://127.0.0.1:5001
-Press CTRL+C to quit
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 114-236-802
-127.0.0.1 - - [10/Jan/2024 10:54:48] "GET /spaces?vscodeBrowserReqId=1704884088786 HTTP/1.1" 200 -
-^C%
-```
-
-If you're happy and there are no changes, exit your virtual environment.
-
-For example:
-```shell
-(makers-007-engineering-project-1) ➜  makers-007-engineering-project-1 git:(story-2-list-spaces) exit
 ```
 
 If there were changes, **repeat step 1** and do another pull to check there aren't any changes from main.
+
 
 ## 5. Push your final changes
 

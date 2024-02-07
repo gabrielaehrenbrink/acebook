@@ -1,3 +1,5 @@
+// frontend/src/components/Navbar/Navbar.jsx
+
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/acebook.svg"
 import "./Navbar.css"
@@ -5,15 +7,16 @@ import "./Navbar.css"
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const id = window.localStorage.getItem("id")
 
     const logout = () => {
         window.localStorage.removeItem("token");
         navigate("/")
     }
 
-    const profilePage = () => {
-        navigate("/profile")
-    }
+    const profilePage = (id) => {
+        navigate(`/profile/${id}`);
+    };
 
     const home = () => {
         navigate("/posts")
@@ -32,7 +35,7 @@ const Navbar = () => {
             
             <div className="pageButtons">
                 <button onClick={home}>Home</button>
-                <button onClick={profilePage}>Profile</button>
+                <button onClick={() => profilePage(id)}>Profile</button>
                 <button onClick={settingsPage}>Settings</button>
                 <button onClick={logout}>Logout</button>
             </div>

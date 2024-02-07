@@ -16,11 +16,13 @@
 }
 
 .profile .user-details {
+  margin-top: 20px; /* Adjust the top margin as needed */
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  max-width: 60%;
   width: 80%;
   max-width: 210px;
   position: absolute;
@@ -35,12 +37,6 @@
   padding-right: 3%;
 }
 
-.image-and-details {
-  display: flex;
-  width: 100%;
-  align-items: center;
-}
-
 .posts-by-user {
   margin-top: 20px; /* Adjust the top margin as needed */
   display: flex;
@@ -53,8 +49,6 @@
 .posts-by-user .post {
   width: 500px;
 }
-
-
 
 .settings {
   max-width: 600px;
@@ -122,4 +116,26 @@
 
 .success-message {
   color: green;
+}
+
+.befriend-unfriend-button {
+  border: 2px solid;
+  color: white;
+  background-color: #007bff;
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 15px;
+  white-space: pre-line;
+  line-height: 1.5;
+  height: 3rem;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+.details-and-friend-container {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

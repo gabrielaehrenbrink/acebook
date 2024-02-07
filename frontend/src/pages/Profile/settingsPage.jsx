@@ -100,7 +100,7 @@ if (successMessage || errorMessage) {
         {errorMessage && <p className="error-message">{errorMessage}</p>}
 
         {/* Form for updating user */}
-        <form onSubmit={(e) => e.preventDefault()} class="form-settings">
+        <form onSubmit={(e) => e.preventDefault()} className="form-settings">
         <label className="label-settings">
             Profile Picture:
             <input
@@ -149,10 +149,10 @@ if (successMessage || errorMessage) {
             />
           </label>
 
-          <button onClick={handleUpdate} class="button-settings">Save</button>
+          <button onClick={handleUpdate} className="button-settings">Save</button>
         </form>
 
-        <button onClick={handleDeleteUser} class="delete-button">Delete Account</button>
+        <button onClick={handleDeleteUser} className="delete-button">Delete Account</button>
       </div>
     </>
   );
