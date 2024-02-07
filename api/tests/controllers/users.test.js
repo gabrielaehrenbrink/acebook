@@ -10,23 +10,46 @@ describe("/users", () => {
     await User.deleteMany({});
   });
 
-  describe("POST, when email and password are provided", () => {
-    test("the response code is 201", async () => {
+  // describe("GET /users/:id", () => {
+  //   test("should get a user and a token with valid user ID", async () => {
+  //     const newUser = await User.create({
+  //       full_name: "Test User",
+  //       email: "test@example.com",
+  //       password: "testPassword",
+  //     });
+  //     const token = generateToken(newUser._id);
+  //     const response = await request(app)
+  //       .get(`/users/${newUser._id}`)
+  //       .set("Authorization", `Bearer ${token}`);
+  //     expect(response.statusCode).toBe(200);
+  //     expect(response.body).toHaveProperty("token");
+  //   });
+  
+  //   // test("should return 401 if user ID is not found", async () => {
+  //   //   const nonExistentUserId = "nonexistentuserid"; 
+  //   //   const response = await request(app).get(`/users/${nonExistentUserId}`);
+  //   //   expect(response.statusCode).toBe(401);
+  //   //   expect(response.body).toHaveProperty("message", "User not found");
+  //   // });
+  // });
+
+
+  describe("POST, create a new user when all the information is provided", () => {
+  test("a user is created", async () => {
+      const testEmail = "test_user@example.com";
+      const testName = "Test User"
+      const testPassword = "testPassword"
       const response = await request(app)
         .post("/users")
-        .send({ email: "poppy@email.com", password: "1234" });
+        .field("full_name", testName)
+        .field("email", testEmail)
+        .field("password", testPassword);
 
       expect(response.statusCode).toBe(201);
-    });
 
-    test("a user is created", async () => {
-      await request(app)
-        .post("/users")
-        .send({ email: "scarconstt@email.com", password: "1234" });
-
-      const users = await User.find();
-      const newUser = users[users.length - 1];
-      expect(newUser.email).toEqual("scarconstt@email.com");
+      const user = await User.findOne({ email: testEmail });
+      expect(user.full_name).toBe(testName);
+      expect(user.email).toBe(testEmail);
     });
   });
 
