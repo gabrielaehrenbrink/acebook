@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import "../../pages/Feed/FeedPage.css";
+import "./Post.css";
 import { likePost } from "../../services/posts";
 import { getAllLikesByPostId } from "../../services/posts";
 import CreateNewComment from "../Comment/CreateNewComment";
