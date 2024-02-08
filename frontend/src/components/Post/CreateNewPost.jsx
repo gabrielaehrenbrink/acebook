@@ -1,6 +1,6 @@
 // CreateNewPost.jsx
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { createPost } from "../../services/posts";
 import "./CreateNewPost.css";
 
@@ -42,6 +42,12 @@ const CreateNewPost = ({ token, setPostChanged }) => {
         }
     };
 
+    const textAreaRef = useRef(null)
+    useEffect(() => {
+        textAreaRef.current.style.height = "auto"
+        textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
+    }, [message])
+
     return (
         <div className="feed-container">
             <form className="feed-form" onSubmit={handleSubmit}>
@@ -53,9 +59,19 @@ const CreateNewPost = ({ token, setPostChanged }) => {
                         className="feed-input"
                         name="message"
                         type="text"
+                        rows={1}
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         required={true}
+                        ref={textAreaRef}
+                        onKeyDown={(e) => {
+                            if (e && e.key === 'Enter' && !e.shiftKey) {
+                                e.preventDefault()
+                                if (message.trim() !== '') {
+                                    handleSubmit(e);
+                                }
+                            }
+                        }}
                     />
                     <button className="feed-button" type="submit">
                         Share
