@@ -88,7 +88,7 @@ export const ProfilePage = () => {
                 )}
             </div>
             <div className="posts-by-user">
-                <h2>My posts</h2>
+                {myProfilePage() ? <h2>My posts</h2> : <h2>Posts</h2>}
                 {[...posts].reverse().map((post) => (
                     <Post post={post} key={post._id} token={token} />
                 ))}
