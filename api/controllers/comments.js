@@ -5,6 +5,13 @@ const mongoose = require("mongoose");
 
 const getAllCommentsByPostID = async (req, res) => {
   try {
+    const pageNumber = req.params.loadCycle || 1;
+    const pageLimit = pageNumber * 2;
+    //console.log("Page Limit: " + pageLimit);
+
+    const totalComments = await Comment.countDocuments({
+      post_id: new mongoose.Types.ObjectId(req.params.postId),
+    });
     const comments = await Comment.aggregate([
       {
         $match: {
@@ -26,6 +33,9 @@ const getAllCommentsByPostID = async (req, res) => {
         },
       },
       {
+        $limit: pageLimit, // Limit the number of comments per page
+      },
+      {
         $project: {
           _id: 1,
           message: 1,
@@ -36,7 +46,7 @@ const getAllCommentsByPostID = async (req, res) => {
         },
       },
     ]);
-    res.status(200).json({ comments });
+    res.status(200).json({ comments, totalComments });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

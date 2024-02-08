@@ -6,6 +6,12 @@ const mongoose = require("mongoose");
 
 const getAllPosts = async (req, res) => {
   try {
+    const pageNumber = req.params.loadCycle || 1;
+    const postLoadLimit = 3;
+    const pageLimit = pageNumber * postLoadLimit;
+
+    const totalPosts = await Post.countDocuments();
+
     const posts = await Post.aggregate([
       {
         $lookup: {
@@ -22,6 +28,19 @@ const getAllPosts = async (req, res) => {
         },
       },
       {
+        $addFields: {
+          createdAt: {
+            $ifNull: ["$createdAt", new Date("2024-02-01T16:05:55.034+00:00")],
+          }, // If createdAt is null, set it to the current date
+        },
+      },
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $limit: pageLimit, // Limit the number of posts per page
+      },
+      {
         $project: {
           _id: 1,
           message: 1,
@@ -34,7 +53,7 @@ const getAllPosts = async (req, res) => {
       },
     ]);
     const token = generateToken(req.user_id);
-    res.status(200).json({ posts, token });
+    res.status(200).json({ posts, token, totalPosts });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -110,63 +129,61 @@ const createPost = async (req, res) => {
   }
 };
 
-
 const deletePost = async (req, res) => {
   const { id } = req.params;
   console.log("Trying to delete: " + id);
   try {
-      const deletedPost = await Post.deleteOne({
+    const deletedPost = await Post.deleteOne({
       _id: new mongoose.Types.ObjectId(id),
-      });
-      res.json({
+    });
+    res.json({
       message: "Post has been deleted successfully",
       deletedPost,
-      });
+    });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error: " + error });
+    console.error(error);
+    res.status(500).json({ message: "Error: " + error });
   }
-  };
-
+};
 
 const editPost = async (req, res) => {
   try {
-      const postId = req.params.id
-      const postText = req.body.post
+    const postId = req.params.id;
+    const postText = req.body.post;
 
-      console.log(postText)
-      console.log(postId)
-      
-      if (!postId) {
-          return res.status(400).json({ message: "Post ID is required to edit a Post!"});
-      }
+    console.log(postText);
+    console.log(postId);
 
-      if (!postText) {
-          return res.status(400).json({ message: "Updated post is required to edit!"})
-      }
+    if (!postId) {
+      return res
+        .status(400)
+        .json({ message: "Post ID is required to edit a Post!" });
+    }
 
-      const updatedPost = await Post.findByIdAndUpdate(
-          postId,
-          {message: postText},
-          {new: true }
-      );
+    if (!postText) {
+      return res
+        .status(400)
+        .json({ message: "Updated post is required to edit!" });
+    }
 
-      if (!updatedPost) {
-          return res.status(400).json({ message: "`Post not found!"});
-      }
+    const updatedPost = await Post.findByIdAndUpdate(
+      postId,
+      { message: postText },
+      { new: true }
+    );
 
-      res.status(200).json({ message: "Post Updated Successfully!", updatedPost});
+    if (!updatedPost) {
+      return res.status(400).json({ message: "`Post not found!" });
+    }
 
+    res
+      .status(200)
+      .json({ message: "Post Updated Successfully!", updatedPost });
   } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Internal server error"});
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
   }
-
-}
-
-
-
-
+};
 
 const PostsController = {
   getAllPosts: getAllPosts,

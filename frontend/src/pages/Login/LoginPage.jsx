@@ -50,7 +50,6 @@ if (loginError) {
 
   return (
     <>
-    <Navbar />
     <div className="sign-up">
       <h2>Login</h2>
       <p className="error-message">{loginError}</p>
