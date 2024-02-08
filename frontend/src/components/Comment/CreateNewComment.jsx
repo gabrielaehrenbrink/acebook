@@ -62,7 +62,9 @@ const CreateNewComment = (props) => {
                 onKeyPress={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
-                        handleSubmit(e);
+                        if (text.trim() !== '') {
+                            handleSubmit(e);
+                        }
                     }
                 }}
                 placeholder="Write a comment..."

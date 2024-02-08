@@ -20,6 +20,7 @@
     margin: 0;
     width: 30px; 
     height: 30px ;
+    object-fit: cover;
 }
 
 .comment-date {
@@ -196,6 +197,7 @@
     margin: 0;
     height: 45px;
     width: 45px;
+    object-fit: cover;
 }
 
 .user-comment .error-message {
