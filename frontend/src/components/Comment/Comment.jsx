@@ -19,7 +19,7 @@ const Comment = ({ comment_data, setNewComment }) => {
     const [numberOfLikes, setNumberOfLikes] = useState(0);
     const [date, setDate] = useState(null)
     const [editedComment, setEditedComment] = useState(comment_data.message);
-
+    const [editingComment, setEditingComment] = useState(false)
 
     const handleDeleteComment = async () => {
         try {
@@ -46,19 +46,15 @@ const Comment = ({ comment_data, setNewComment }) => {
 
 
     const handleEditComment = async () => {
-        try {
-            if (!token) {
-                console.error("Token not found in local storage");
-                return;
-            }
-
+        /* try {
             await editComment(token, comment_data._id, editedComment);
             console.log("Comment Successfully Edited!")
             setNewComment(true);
         } catch (error) {
             console.error("Error Editing Comment:", error);
             console.log("Error Editing Comment!")
-        }
+        } */
+        setEditingComment(true)
     }
 
 
@@ -96,13 +92,16 @@ const Comment = ({ comment_data, setNewComment }) => {
                 )}
                 {showOptions && (
                     <div className='options-menu'>
-                        <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
                         <button onClick={handleEditComment}>Edit</button>
                         <button onClick={handleDeleteComment}>Delete</button>
                     </div>
                 )}
             </div>
-            <p className="comment-text">{comment_data.message}</p>
+            {!editingComment ? 
+            <p className="comment-text">{comment_data.message}</p> :
+            <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
+            }
+            
             <div className="post-actions">
                 <LikeButton handleLikeClick={handleLikeClick} isLiked={isLiked} numberOfLikes={numberOfLikes}></LikeButton>
             </div>

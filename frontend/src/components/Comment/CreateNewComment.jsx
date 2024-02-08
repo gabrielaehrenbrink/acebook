@@ -5,6 +5,7 @@ import { getUser } from "../../services/users"
 import { submitComment } from "../../services/comments";
 import Comment from './Comment';
 import { getAllCommentsForAPost } from "../../services/comments"
+import "./newComment.css"
 
 const CreateNewComment = (props) => {
     const [text, setText] = useState('');
