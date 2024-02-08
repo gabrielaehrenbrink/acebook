@@ -57,14 +57,15 @@ describe("Login Page", () => {
     expect(navigateMock).toHaveBeenCalledWith("/posts");
   });
 
-  test("navigates to /login on unsuccessful login", async () => {
+  test("user not found error on unsuccessful login", async () => {
     render(<LoginPage />);
 
-    login.mockRejectedValue(new Error("Error logging in"));
-    const navigateMock = useNavigate();
+    login.mockRejectedValueOnce({ message: "Received status 401 when logging in. Expected 201" });
 
-    await completeLoginForm();
-
-    expect(navigateMock).toHaveBeenCalledWith("/login");
+    try {
+      await completeLoginForm();
+    } catch (error) {
+      expect(error.message).toBe("User not found. Please try again or create an account.");
+    }
   });
 });

@@ -3,6 +3,7 @@ import { SignupPage } from "../../src/pages/Signup/SignupPage";
 import { LoginPage } from "../../src/pages/Login/LoginPage"
 import { useNavigate } from "react-router-dom";
 import { likePost } from "../../src/services/posts";
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const completeSignupForm = async () => {
     const user = userEvent.setup();
@@ -37,7 +38,9 @@ describe("Like and unlike posts", () => {
     });
 
     test("Signup and login a user", async () => {
-        render(<SignupPage />)
+        render(<Router>
+        <SignupPage/>
+      </Router>)
         try {
             const navigateMock = useNavigate();
             await completeSignupForm();
