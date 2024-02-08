@@ -6,6 +6,7 @@ import { deleteComment } from '../../services/comments';
 import { getAllLikesByCommentId, likeComment } from '../../services/comments';
 import { calculateTimeSincePost } from '../dateTimeLogic';
 import { editComment } from '../../services/comments';
+import LikeButton from "../Buttons/LikeButton/LikeButton.jsx"
 
 const Comment = ({ comment_data, setNewComment }) => {
     const [showOptions, setShowOptions] = useState(false)
@@ -103,11 +104,7 @@ const Comment = ({ comment_data, setNewComment }) => {
             </div>
             <p className="comment-text">{comment_data.message}</p>
             <div className="post-actions">
-                <div className="like-btn" onClick={handleLikeClick}>
-                {/* Display "Like" or "Unlike" based on the isLiked state */}
-                <label>Likes: {numberOfLikes}</label>
-                <button>{isLiked ? "Unlike" : "Like"}</button>
-                </div>
+                <LikeButton handleLikeClick={handleLikeClick} isLiked={isLiked} numberOfLikes={numberOfLikes}></LikeButton>
             </div>
         </div>
     );

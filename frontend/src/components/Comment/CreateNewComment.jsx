@@ -56,15 +56,21 @@ const CreateNewComment = (props) => {
         <div className='user-comment'>
             <img src={user.profile_pic} alt="" className='profile-pic'/>
             <form className="comment-form" onSubmit={handleSubmit}>
-                <textarea className="comment-text-area"
-                    value={text}
-                    onChange={(e) => setText(e.target.value)}
-                    placeholder="Write a comment..."
-                    rows={1}
-                    ref={textAreaRef}
-                    required={true}
-                />
-                <button type="submit">Submit Comment!</button>
+            <textarea className="comment-text-area"
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+                onKeyPress={(e) => {
+                    if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSubmit(e);
+                    }
+                }}
+                placeholder="Write a comment..."
+                rows={1}
+                ref={textAreaRef}
+                required={true}
+            />
+                {/* <button type="submit">Submit Comment!</button> */}
             </form>
             {error ? (<p className='error-message'>{error}</p>) : null}
         </div>

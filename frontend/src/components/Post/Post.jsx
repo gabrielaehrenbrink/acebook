@@ -10,6 +10,7 @@ import { calculateTimeSincePost } from "../dateTimeLogic";
 import { deletePost } from "../../services/posts";
 import { editPost } from '../../services/posts';
 import { useNavigate } from "react-router-dom";
+import LikeButton from "../Buttons/LikeButton/LikeButton.jsx"
 
 
 const Post = ({ post, token, setNewPost }) => {
@@ -126,11 +127,7 @@ const Post = ({ post, token, setNewPost }) => {
         {/* <div>user_id: {post.user_id}</div> */}
       </div>
       <div className="post-actions">
-        <div className="like-btn" onClick={handleLikeClick}>
-          {/* Display "Like" or "Unlike" based on the isLiked state */}
-          <label>No. of Likes: {numberOfLikes}</label>
-          <button>{isLiked ? "Unlike" : "Like"}</button>
-        </div>
+        <LikeButton handleLikeClick={handleLikeClick} isLiked={isLiked} numberOfLikes={numberOfLikes}></LikeButton>
         <div className="comment-btn">
           <button onClick={handleCommentClick} >Comments</button>
         </div>
