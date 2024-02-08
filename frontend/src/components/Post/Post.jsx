@@ -3,11 +3,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./Post.css";
 import { likePost, getAllLikesByPostId, editPost, deletePost } from "../../services/posts";
-//import { getAllLikesByPostId } from "../../services/posts";
 import CommentsList from "../Comment/CommentsList";
 import { calculateTimeSincePost } from "../dateTimeLogic";
-// import { deletePost } from "../../services/posts";
-// import { editPost } from '../../services/posts';
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../Buttons/LikeButton/LikeButton.jsx"
 
@@ -107,7 +104,6 @@ const Post = ({ post, token, setNewPost }) => {
       }
   }, [editedPost])
 
-  // console.log(post.comments)
   return (
     <div className="post" id={post._id}>
       <div className="post-header">
@@ -138,7 +134,6 @@ const Post = ({ post, token, setNewPost }) => {
         />
         }
         {post.image != undefined && post.image != ""  ? ( <img src={post.image} className="post-image"/>): null} 
-        {/* <div>user_id: {post.user_id}</div> */}
       </div>
       <div className="post-actions">
         <LikeButton handleLikeClick={handleLikeClick} isLiked={isLiked} numberOfLikes={numberOfLikes}></LikeButton>
