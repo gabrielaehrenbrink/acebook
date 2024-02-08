@@ -8,6 +8,7 @@
     margin: 0;
     height: 45px;
     width: 45px;
+    object-fit: cover;
 }
 
 .user-comment .error-message {

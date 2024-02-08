@@ -1,15 +1,13 @@
 // frontend/src/components/Post/Post.jsx
 
-import React, { useEffect, useState } from "react";
-import "../../pages/Feed/FeedPage.css";
+import React, { useEffect, useState, useRef } from "react";
 import "./Post.css";
-import { likePost } from "../../services/posts";
-import { getAllLikesByPostId } from "../../services/posts";
-import CreateNewComment from "../Comment/CreateNewComment";
+import { likePost, getAllLikesByPostId, editPost, deletePost } from "../../services/posts";
+//import { getAllLikesByPostId } from "../../services/posts";
 import CommentsList from "../Comment/CommentsList";
 import { calculateTimeSincePost } from "../dateTimeLogic";
-import { deletePost } from "../../services/posts";
-import { editPost } from '../../services/posts';
+// import { deletePost } from "../../services/posts";
+// import { editPost } from '../../services/posts';
 import { useNavigate } from "react-router-dom";
 import LikeButton from "../Buttons/LikeButton/LikeButton.jsx"
 
@@ -29,6 +27,7 @@ const Post = ({ post, token, setNewPost }) => {
   const handleOptions = () => {
       setShowOptions(!showOptions)
   }
+  const [editingPost, setEditingPost] = useState(false)
 
   useEffect(() => {
     const fetchLikes = async () => {
@@ -85,20 +84,28 @@ const Post = ({ post, token, setNewPost }) => {
   
   
   const handleEditPost = async () => {
-    try {
-        if (!token) {
-            console.error("Token not found in local storage");
-            return;
-        }
+    handleOptions()
+    setEditingPost(!editingPost)
+  }
 
+  const updatePost = async () => {
+    try {
         await editPost(token, post._id, editedPost);
-        console.log("Post Successfully Edited!")
+        console.log("Comment Successfully Edited!")
         setNewPost(true);
+        setEditingPost(!editingPost)
     } catch (error) {
         console.error("Error Editing Post:", error);
-        console.log("Error Editing Post!")
     }
   }
+
+  const textAreaRef = useRef(null)
+  useEffect(() => {
+      if (editingPost) {
+          textAreaRef.current.style.height = "auto"
+          textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
+      }
+  }, [editedPost])
 
   // console.log(post.comments)
   return (
@@ -117,14 +124,20 @@ const Post = ({ post, token, setNewPost }) => {
       </button>)}
       {showOptions && (
           <div className='post-options-menu'>
-              <textarea value={editedPost} onChange={(e) => setEditedPost(e.target.value)} />
               <button onClick={handleEditPost}>Edit</button>
               <button onClick={handleDeletePost}>Delete</button>
           </div>  
       )}
       <div className="post-content">
-        <article>{post.message}</article>
-        {post.image != undefined ? ( <img src={post.image} className="post-image"/>): null} 
+        {!editingPost ?
+        <article>{post.message}</article> :
+        <textarea value={editedPost} 
+          onChange={(e) => setEditedPost(e.target.value)} 
+          onBlur={updatePost}
+          ref={textAreaRef}
+        />
+        }
+        {post.image != undefined && post.image != ""  ? ( <img src={post.image} className="post-image"/>): null} 
         {/* <div>user_id: {post.user_id}</div> */}
       </div>
       <div className="post-actions">

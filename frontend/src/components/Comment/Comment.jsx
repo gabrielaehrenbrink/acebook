@@ -1,6 +1,6 @@
 // frontend/src/components/Comment/Comment.jsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import "./comment.css"
 import { deleteComment } from '../../services/comments';
 import { getAllLikesByCommentId, likeComment } from '../../services/comments';
@@ -46,25 +46,13 @@ const Comment = ({ comment_data, setNewComment }) => {
 
 
     const handleEditComment = async () => {
-        /* try {
-            await editComment(token, comment_data._id, editedComment);
-            console.log("Comment Successfully Edited!")
-            setNewComment(true);
-        } catch (error) {
-            console.error("Error Editing Comment:", error);
-            console.log("Error Editing Comment!")
-        } */
-        setEditingComment(true)
+        handleOptions()
+        setEditingComment(!editingComment)
     }
-
-
 
     const handleLikeClick = async () => {
         try {
-          // Call the likePost function to send the like request to the backend
           await likeComment(comment_data._id, token);
-    
-          // Toggle the like status in the UI
           setIsLiked(!isLiked);
         } catch (error) {
           console.error("Error liking the post:", error.message);
@@ -76,6 +64,26 @@ const Comment = ({ comment_data, setNewComment }) => {
         setDate(calculateTimeSincePost(comment_data.createdAt))
       }
     })
+
+    const updateComment = async () => {
+        try {
+            await editComment(token, comment_data._id, editedComment);
+            console.log("Comment Successfully Edited!")
+            setNewComment(true);
+            setEditingComment(!editingComment)
+        } catch (error) {
+            console.error("Error Editing Comment:", error);
+            console.log("Error Editing Comment!")
+        }
+    }
+
+    const textAreaRef = useRef(null)
+    useEffect(() => {
+        if (editingComment) {
+            textAreaRef.current.style.height = "auto"
+            textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
+        }
+    }, [editedComment])
 
     return (
         <div className="comment">
@@ -99,7 +107,11 @@ const Comment = ({ comment_data, setNewComment }) => {
             </div>
             {!editingComment ? 
             <p className="comment-text">{comment_data.message}</p> :
-            <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
+            <textarea value={editedComment} 
+                onChange={(e) => setEditedComment(e.target.value)} 
+                onBlur={updateComment}
+                ref={textAreaRef}
+            />
             }
             
             <div className="post-actions">
