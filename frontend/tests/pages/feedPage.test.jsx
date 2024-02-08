@@ -38,8 +38,8 @@ describe("Feed Page", () => {
     // const posts = await screen.findAllByClassName("post");
     const posts = await screen.findAllByRole("article");
     expect(posts).toHaveLength(2);
-    expect(posts[0].textContent).toEqual("Test Post 2");
-    expect(posts[1].textContent).toEqual("Test Post 1");
+    expect(posts[0].textContent).toEqual("Test Post 1");
+    expect(posts[1].textContent).toEqual("Test Post 2");
   });
 
   test("It navigates to login if no token is present", async () => {
@@ -67,8 +67,8 @@ describe("Feed Page", () => {
 
 
     expect(posts).toHaveLength(3);
-    expect(posts[0].textContent).toEqual("Test Post 3"); // Newest post should be first
+    expect(posts[0].textContent).toEqual("Test Post 1"); // Newest post should be first
     expect(posts[1].textContent).toEqual("Test Post 2");
-    expect(posts[2].textContent).toEqual("Test Post 1");
+    expect(posts[2].textContent).toEqual("Test Post 3");
   });
 });

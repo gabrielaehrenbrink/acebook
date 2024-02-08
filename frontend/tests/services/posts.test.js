@@ -15,14 +15,14 @@ describe("posts service", () => {
         status: 200,
       });
 
-      await getPosts("testToken");
+      await getPosts("testToken", 1);
 
       // This is an array of the arguments that were last passed to fetch
       const fetchArguments = fetch.mock.lastCall;
       const url = fetchArguments[0];
       const options = fetchArguments[1];
 
-      expect(url).toEqual(`${BACKEND_URL}/posts`);
+      expect(url).toEqual(`${BACKEND_URL}/posts/all/1`);
       expect(options.method).toEqual("GET");
       expect(options.headers["Authorization"]).toEqual("Bearer testToken");
     });
