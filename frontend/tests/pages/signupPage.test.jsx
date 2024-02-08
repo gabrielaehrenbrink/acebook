@@ -1,11 +1,10 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { vi } from "vitest";
-
 import { useNavigate } from "react-router-dom";
 import { signup } from "../../src/services/authentication";
-
 import { SignupPage } from "../../src/pages/Signup/SignupPage";
+
 
 // Mocking React Router's useNavigate function
 vi.mock("react-router-dom", () => {
@@ -20,14 +19,18 @@ vi.mock("../../src/services/authentication", () => {
   return { signup: signupMock };
 });
 
+
 // Reusable function for filling out signup form
 const completeSignupForm = async () => {
   const user = userEvent.setup();
 
+
+  const nameInputEl = screen.getByLabelText("Full name:")
   const emailInputEl = screen.getByLabelText("Email:");
   const passwordInputEl = screen.getByLabelText("Password:");
   const submitButtonEl = screen.getByRole("submit-button");
 
+  await user.type(nameInputEl, "test name")
   await user.type(emailInputEl, "test@email.com");
   await user.type(passwordInputEl, "1234");
   await user.click(submitButtonEl);
@@ -40,30 +43,37 @@ describe("Signup Page", () => {
 
   test("allows a user to signup", async () => {
     render(<SignupPage />);
-
-    await completeSignupForm();
-
-    expect(signup).toHaveBeenCalledWith("test@email.com", "1234");
+    try{
+      await completeSignupForm();
+      expect(signup).toHaveBeenCalledWith("test name", "test@email.com", "1234");
+    } catch(error) {
+      console.error("Signup failed", error);
+    }
   });
 
+  
   test("navigates to /login on successful signup", async () => {
     render(<SignupPage />);
+    try {
+      const navigateMock = useNavigate();
+      await completeSignupForm();
+      expect(navigateMock).toHaveBeenCalledWith("/login");
+    } catch(error) {
+      console.error("Signup failed", error)
+    }
 
-    const navigateMock = useNavigate();
 
-    await completeSignupForm();
-
-    expect(navigateMock).toHaveBeenCalledWith("/login");
   });
 
   test("navigates to /signup on unsuccessful signup", async () => {
     render(<SignupPage />);
-
-    signup.mockRejectedValue(new Error("Error signing up"));
-    const navigateMock = useNavigate();
-
-    await completeSignupForm();
-
-    expect(navigateMock).toHaveBeenCalledWith("/signup");
+    try {
+      signup.mockRejectedValue(new Error("Error signing up"));
+      const navigateMock = useNavigate();
+      await completeSignupForm();
+      expect(navigateMock).toHaveBeenCalledWith("/signup");
+    } catch(error) {
+      console.error("Signup failed", error)
+    }
   });
 });

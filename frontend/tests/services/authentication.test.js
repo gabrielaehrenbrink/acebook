@@ -14,7 +14,7 @@ describe("authentication service", () => {
       const testEmail = "test@testEmail.com";
       const testPassword = "12345678";
 
-      fetch.mockResponseOnce(JSON.stringify({ token: "testToken" }), {
+      fetch.mockResponseOnce(JSON.stringify({ token: "testToken", id: "userId" }), {
         status: 201,
       });
 
@@ -36,13 +36,14 @@ describe("authentication service", () => {
     test("returns the token if the request was a success", async () => {
       const testEmail = "test@testEmail.com";
       const testPassword = "12345678";
-
-      fetch.mockResponseOnce(JSON.stringify({ token: "testToken" }), {
+    
+      fetch.mockResponseOnce(JSON.stringify({ token: "testToken", id: "userID" }), {
         status: 201,
       });
-
-      const token = await login(testEmail, testPassword);
+    
+      const [token, id] = await login(testEmail, testPassword);
       expect(token).toEqual("testToken");
+      expect(id).toEqual("userID");
     });
 
     test("throws an error if the request failed", async () => {
@@ -65,6 +66,8 @@ describe("authentication service", () => {
 
   describe("signup", () => {
     test("calls the backend url for a token", async () => {
+      const testProfilePic = "testProfilePic.jpg";
+      const testFullName = "John Doe";
       const testEmail = "test@testEmail.com";
       const testPassword = "12345678";
 
@@ -72,7 +75,7 @@ describe("authentication service", () => {
         status: 201,
       });
 
-      await signup(testEmail, testPassword);
+      await signup(testProfilePic, testFullName, testEmail, testPassword);
 
       // This is an array of the arguments that were last passed to fetch
       const fetchArguments = fetch.mock.lastCall;
@@ -82,7 +85,7 @@ describe("authentication service", () => {
       expect(url).toEqual(`${BACKEND_URL}/users`);
       expect(options.method).toEqual("POST");
       expect(options.body).toEqual(
-        JSON.stringify({ email: testEmail, password: testPassword })
+        JSON.stringify({ profile_pic: testProfilePic, full_name: testFullName, email: testEmail, password: testPassword })
       );
       expect(options.headers["Content-Type"]).toEqual("application/json");
     });
