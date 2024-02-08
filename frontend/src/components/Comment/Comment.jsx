@@ -95,7 +95,7 @@ const Comment = ({ comment_data, setNewComment }) => {
                 </div>
                 {comment_data.user_id == id && (
                 <button className='options' onClick={handleOptions}>
-                    <img className="options-button-image" src="src/assets/three-dots.svg" alt="" />
+                    <img className="options-button-image" src="http://localhost:5173/public/three-dots.svg" alt="" />
                 </button>
                 )}
                 {showOptions && (

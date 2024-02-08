@@ -91,6 +91,7 @@ const getPostsByUser = async (req, res) => {
           full_name: "$userDetails.full_name",
           profile_pic: "$userDetails.profile_pic",
           image: 1,
+          user_id: 1,
         },
       },
     ]);
