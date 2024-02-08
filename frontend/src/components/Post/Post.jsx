@@ -116,7 +116,7 @@ const Post = ({ post, token, setNewPost }) => {
         </a>
       </div>
       {post.user_id == id && (<button className='options-button' onClick={handleOptions}>
-        <img className="options-button-image" src="src/assets/three-dots.svg" alt="" />
+        <img className="options-button-image" src="http://localhost:5173/public/three-dots.svg" alt="" />
       </button>)}
       {showOptions && (
           <div className='post-options-menu'>

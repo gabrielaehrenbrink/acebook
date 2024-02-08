@@ -8,6 +8,8 @@ import Post from "../../components/Post/Post.jsx";
 import { getPostsByUser } from "../../services/posts";
 import { useParams } from "react-router-dom";
 import { befriend, unfriend, getFriendStatus} from "../../services/friends";
+import { FriendList } from "../../components/Friend/FriendList.jsx";
+import React from "react";
 
 export const ProfilePage = () => {
     document.title = "Profile Page"
@@ -87,11 +89,18 @@ export const ProfilePage = () => {
                     </button>
                 )}
             </div>
-            <div className="posts-by-user">
-                {myProfilePage() ? <h2>My posts</h2> : <h2>Posts</h2>}
-                {[...posts].reverse().map((post) => (
-                    <Post post={post} key={post._id} token={token} />
-                ))}
+            <div className="posts-and-friends-container">
+                <div className="friendlist">
+                    <br></br>
+                    {myProfilePage() ? <h2>My Friends</h2> : <h2>Friends</h2>}
+                    <FriendList userId={userId}/>
+                </div>
+                <div className="posts-by-user">
+                    {myProfilePage() ? <h2>My posts</h2> : <h2>Posts</h2>}
+                    {[...posts].reverse().map((post) => (
+                        <Post post={post} key={post._id} token={token} />
+                    ))}
+                </div>
             </div>
         </div>
         </>

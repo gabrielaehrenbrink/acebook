@@ -102,10 +102,13 @@ body {
 
 
 .allposts {
+    position: absolute;
     margin: 0 auto;
     text-align: center;
     width: 80%; 
     margin-bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 

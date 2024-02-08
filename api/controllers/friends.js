@@ -66,11 +66,55 @@ const getFriendStatus = async (req, res) => {
   }
 };
 
+const getAllFriendsByUserId = async (req, res) => {
+  let user_id = req.params.id;
+
+  try {
+    const friends = await Friend.aggregate([
+      {
+        $match: {
+          user_id: new mongoose.Types.ObjectId(user_id), // Convert user_id to ObjectId if it's a string
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "friends",
+          foreignField: "_id",
+          as: "userDetails",
+        },
+      },
+      {
+        $unwind: {
+          path: "$userDetails",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          full_name: "$userDetails.full_name",
+          profile_pic: "$userDetails.profile_pic",
+          user_id: "$userDetails._id",
+        },
+      },
+    ]);
+    const token = generateToken(req.user_id);
+    res.status(200).json({ friends, token });
+  } 
+  
+  catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
 
 const FriendsController = {
   befriend: befriend,
   unfriend: unfriend,
   getFriendStatus: getFriendStatus,
+  getAllFriendsByUserId: getAllFriendsByUserId,
 };
 
 
