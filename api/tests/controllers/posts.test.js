@@ -15,8 +15,8 @@ const createToken = (userId) => {
       user_id: userId,
       // Backdate this token of 5 minutes
       iat: Math.floor(Date.now() / 1000) - 5 * 60,
-      // Set the JWT token to expire in 10 minutes
-      exp: Math.floor(Date.now() / 1000) + 10 * 60,
+      // Set the JWT token to expire in 24 hrs
+      exp: Math.floor(Date.now() / 1000) + 24 * 60 * 60,
     },
     secret
   );
@@ -26,6 +26,7 @@ let token;
 describe("/posts", () => {
   beforeAll(async () => {
     const user = new User({
+      full_name: "Test user",
       email: "post-test@test.com",
       password: "12345678",
     });
