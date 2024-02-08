@@ -29,20 +29,23 @@
 
 .feed-input {
     width: calc(100% - 16px); /* Adjust width considering padding and border */
-    padding: 8px;
+    padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
     box-sizing: border-box; /* Include padding and border in the total width and height */
+    resize: none;
+    border-radius: 15px;
+    outline: none;
+    line-height: 1;
 }
 
 .feed-button {
     background-color: #007bff; /* Blue color */
     color: #fff;
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     padding: 8px 15px;
     cursor: pointer;
-    align-self: flex-end; /* Align the button to the right */
+    margin: 0 5px;
 }
 
 .upload-a-picture input[type=file] {
