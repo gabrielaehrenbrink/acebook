@@ -1,7 +1,8 @@
 const request = require("supertest");
-
 const app = require("../../app");
 const User = require("../../models/user");
+jest.mock("../../lib/token");
+
 
 require("../mongodb_helper");
 
@@ -10,25 +11,44 @@ describe("/users", () => {
     await User.deleteMany({});
   });
 
-  describe("POST, when email and password are provided", () => {
-    test("the response code is 201", async () => {
+  describe("GET /users/:id", () => {
+    test("should get a user and a token with valid user ID", async () => {
+      const newUser = await User.create({
+        full_name: "Test User",
+        email: "test@example.com",
+        password: "testPassword",
+      });
+  
       const response = await request(app)
-        .post("/users")
-        .send({ email: "poppy@email.com", password: "1234" });
-
-      expect(response.statusCode).toBe(201);
-    });
-
-    test("a user is created", async () => {
-      await request(app)
-        .post("/users")
-        .send({ email: "scarconstt@email.com", password: "1234" });
-
-      const users = await User.find();
-      const newUser = users[users.length - 1];
-      expect(newUser.email).toEqual("scarconstt@email.com");
+        .get(`/users/${newUser._id}`)
+        .expect(200);
+      console.log(response.body)
+      console.log(newUser)
+      expect(response.body.user._id.toString()).toBe(newUser._id.toString());
     });
   });
+
+
+  describe("POST, create a new user when all the information is provided", () => {
+    test("a user is created", async () => {
+      const userData = {
+        full_name: "Test User",
+        email: "test@example.com",
+        password: "testPassword",
+      };
+
+      const response = await request(app)
+        .post("/users")
+        .send(userData);
+
+      expect(response.statusCode).toBe(201);
+      expect(response.body.userId).toBeDefined();
+
+      // Optionally, you can check that the user was saved to the database
+      const user = await User.findOne({ email: userData.email });
+      expect(user).not.toBeNull();
+      });
+    });
 
   describe("POST, when password is missing", () => {
     test("response code is 400", async () => {
