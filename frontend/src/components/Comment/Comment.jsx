@@ -1,6 +1,6 @@
 // frontend/src/components/Comment/Comment.jsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import "./comment.css"
 import { deleteComment } from '../../services/comments';
 import { getAllLikesByCommentId, likeComment } from '../../services/comments';
@@ -19,7 +19,7 @@ const Comment = ({ comment_data, setNewComment }) => {
     const [numberOfLikes, setNumberOfLikes] = useState(0);
     const [date, setDate] = useState(null)
     const [editedComment, setEditedComment] = useState(comment_data.message);
-
+    const [editingComment, setEditingComment] = useState(false)
 
     const handleDeleteComment = async () => {
         try {
@@ -46,29 +46,13 @@ const Comment = ({ comment_data, setNewComment }) => {
 
 
     const handleEditComment = async () => {
-        try {
-            if (!token) {
-                console.error("Token not found in local storage");
-                return;
-            }
-
-            await editComment(token, comment_data._id, editedComment);
-            console.log("Comment Successfully Edited!")
-            setNewComment(true);
-        } catch (error) {
-            console.error("Error Editing Comment:", error);
-            console.log("Error Editing Comment!")
-        }
+        handleOptions()
+        setEditingComment(!editingComment)
     }
-
-
 
     const handleLikeClick = async () => {
         try {
-          // Call the likePost function to send the like request to the backend
           await likeComment(comment_data._id, token);
-    
-          // Toggle the like status in the UI
           setIsLiked(!isLiked);
         } catch (error) {
           console.error("Error liking the post:", error.message);
@@ -80,6 +64,26 @@ const Comment = ({ comment_data, setNewComment }) => {
         setDate(calculateTimeSincePost(comment_data.createdAt))
       }
     })
+
+    const updateComment = async () => {
+        try {
+            await editComment(token, comment_data._id, editedComment);
+            console.log("Comment Successfully Edited!")
+            setNewComment(true);
+            setEditingComment(!editingComment)
+        } catch (error) {
+            console.error("Error Editing Comment:", error);
+            console.log("Error Editing Comment!")
+        }
+    }
+
+    const textAreaRef = useRef(null)
+    useEffect(() => {
+        if (editingComment) {
+            textAreaRef.current.style.height = "auto"
+            textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
+        }
+    }, [editedComment])
 
     return (
         <div className="comment">
@@ -96,13 +100,20 @@ const Comment = ({ comment_data, setNewComment }) => {
                 )}
                 {showOptions && (
                     <div className='options-menu'>
-                        <textarea value={editedComment} onChange={(e) => setEditedComment(e.target.value)} />
                         <button onClick={handleEditComment}>Edit</button>
                         <button onClick={handleDeleteComment}>Delete</button>
                     </div>
                 )}
             </div>
-            <p className="comment-text">{comment_data.message}</p>
+            {!editingComment ? 
+            <p className="comment-text">{comment_data.message}</p> :
+            <textarea value={editedComment} 
+                onChange={(e) => setEditedComment(e.target.value)} 
+                onBlur={updateComment}
+                ref={textAreaRef}
+            />
+            }
+            
             <div className="post-actions">
                 <LikeButton handleLikeClick={handleLikeClick} isLiked={isLiked} numberOfLikes={numberOfLikes}></LikeButton>
             </div>

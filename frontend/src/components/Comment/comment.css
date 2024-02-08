@@ -20,6 +20,7 @@
     margin: 0;
     width: 30px; 
     height: 30px ;
+    object-fit: cover;
 }
 
 .comment-date {
@@ -74,8 +75,8 @@
 }
 
 .comment .options-menu {
-    margin-left: 16.5rem;
-    margin-bottom: -6.5rem;
+    top: 20px;
+    right: 15px;
     background-color: #fff; 
     border: 1px solid #ccc; 
     padding: 5px; 
@@ -83,7 +84,7 @@
     display: flex;
     flex-direction: column;
     border-radius: 10px;
-    position: relative;
+    position: absolute;
 }
 
 .comment .options-menu textarea {
@@ -94,16 +95,6 @@
     padding: 5px; /* Add padding for better appearance */
     resize: vertical; /* Allow vertical resizing */
     margin-bottom: 10px; /* Add some space between textarea and buttons */
-}
-.post .options-button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-    font-size: large;
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    border-radius: 50%;
 }
 
 .options-button-image {
@@ -130,45 +121,6 @@
     background-color: #fcfcfc;
 }
 
-.post .options-button:hover {
-    background-color: #f0f0f0;
-}
-
-.post .post-options-menu {
-    margin-left: -11.5rem;
-    margin-bottom: -6.5rem;
-    background-color: #fff; 
-    border: 1px solid #ccc; 
-    padding: 5px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-    display: flex;
-    flex-direction: column;
-    border-radius: 10px;
-    position: relative;
-}
-
-.post .post-options-menu textarea {
-    z-index: 1; /* Ensure the textarea is positioned above other elements */
-    background-color: #ffffff; /* Set background color */
-    border: 1px solid #ccc; /* Add border */
-    border-radius: 5px; /* Add border radius for a rounded look */
-    padding: 5px; /* Add padding for better appearance */
-    resize: vertical; /* Allow vertical resizing */
-    margin-bottom: 10px; /* Add some space between textarea and buttons */
-}
-
-.post .post-options-menu button {
-    border: none; /* Remove the border from the buttons */
-    outline: none; /* Remove button outline */
-    cursor: pointer;
-    padding: 2px;
-}
-
-.post .post-options-menu button:hover {
-    text-decoration: underline;
-}
-
-
 .options-menu button {
     border: none;
     cursor: pointer;
@@ -185,34 +137,16 @@
     margin-left: 25rem;
 }
 
-
-.user-comment {
-    margin-top: 10px;
-    padding: 5px;
-    display: flex;
-}
-
-.user-comment .profile-pic {
-    margin: 0;
-    height: 45px;
-    width: 45px;
-}
-
-.user-comment .error-message {
-    margin-bottom: 0;
-}
-
-.user-comment form {
-    width: 100%;
-}
-
-.comment-text-area {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 15px;
-    padding: 8px;
-    width: 92%;
+.comment textarea {
+    background-color: transparent;
+    width: 95%;
     resize: none;
-    box-sizing:content-box;
-    border-radius: 15px;
-    outline: none;
+    padding: 10px;
+    padding-top: 5px;
+    padding-bottom: 0;
+    margin-left: 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
 }
+
+

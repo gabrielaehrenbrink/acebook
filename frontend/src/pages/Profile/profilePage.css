@@ -4,6 +4,7 @@
   border-radius: 50%;
   border: 2px solid #1877f2;
   margin-left: 20px;
+  object-fit: cover;
 }
 
 .profile {
@@ -134,7 +135,7 @@
 
 .details-and-friend-container {
   display: flex;
-  width: 100%;
+  width: 80%;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

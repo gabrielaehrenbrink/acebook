@@ -3,8 +3,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { getUser } from "../../services/users"
 import { submitComment } from "../../services/comments";
-import Comment from './Comment';
-import { getAllCommentsForAPost } from "../../services/comments"
+import "./newComment.css"
 
 const CreateNewComment = (props) => {
     const [text, setText] = useState('');
@@ -62,7 +61,9 @@ const CreateNewComment = (props) => {
                 onKeyPress={(e) => {
                     if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
-                        handleSubmit(e);
+                        if (text.trim() !== '') {
+                            handleSubmit(e);
+                        }
                     }
                 }}
                 placeholder="Write a comment..."
