@@ -59,3 +59,23 @@ export const getFriendStatus = async (token, id) => {
     const data = await response.json();
     return data; // This will return an object with the isFriend boolean
 };
+
+export const getAllFriendsByUserId = async (token, id) => {
+    const requestOptions = {
+        method: "GET", 
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
+
+    // console.log("requestOptions: ", requestOptions)
+
+    const response = await fetch(`${BACKEND_URL}/friends/${id}/allfriends`, requestOptions);
+
+    if (!response.ok) { 
+        throw new Error("Failed to retrieve friend status.");
+    }
+
+    const data = await response.json();
+    return data; // This will return an object with the isFriend boolean
+};

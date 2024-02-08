@@ -1,0 +1,19 @@
+
+.friend-container {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 15px;
+}
+
+.allfriends {
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.friend-container img {
+    object-fit: cover;
+}

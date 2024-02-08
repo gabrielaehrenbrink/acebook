@@ -6,8 +6,10 @@ import { getPosts } from "../../services/posts";
 import Post from "../../components/Post/Post";
 import Navbar from "../../components/Navbar/Navbar"; 
 import "./FeedPage.css";
+import "../Profile/profilePage.css"
 import CreateNewPost from "../../components/Post/CreateNewPost";
 import { getUser } from "../../services/users";
+import { FriendList } from "../../components/Friend/FriendList";
 
 export const FeedPage = () => {
   document.title = "Posts"
@@ -94,17 +96,25 @@ export const FeedPage = () => {
   return (
     <>
       <Navbar />
-    
-      <div className="allposts">
-        <br></br>
-        <br></br>
-        <CreateNewPost token={token} setPostChanged={setPostChanged}/>
-        <br></br>
-        <h2>Posts</h2>
-        <div className="feed" role="feed">
-          {[...posts].map((post) => (
-              <Post post={post} key={post._id} token={token} setNewPost={setPostChanged}/>
-          ))}
+
+      <div className="posts-and-friends-container">
+        <div className="friendlist">
+            <br></br>
+            <h2>My Friends</h2>
+            <FriendList userId={id}/>
+        </div>
+
+        <div className="allposts">
+          <br></br>
+          <br></br>
+          <CreateNewPost token={token} setPostChanged={setPostChanged}/>
+          <br></br>
+          <h2>Posts</h2>
+          <div className="feed" role="feed">
+            {[...posts].map((post) => (
+                <Post post={post} key={post._id} token={token} setNewPost={setPostChanged}/>
+            ))}
+          </div>
         </div>
       </div>
 
