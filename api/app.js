@@ -29,7 +29,7 @@ app.use("/tokens", authenticationRouter);
 app.use("/uploads", express.static("uploads"));
 app.use("/posts", tokenChecker, postsRouter);
 app.use("/likes", tokenChecker, likesRouter);
-app.use("/users", settingsRoutes); 
+app.use("/users", settingsRoutes);
 app.use("/comments", tokenChecker, commentsRouter);
 app.use("/friends", tokenChecker, friendsRouter);
 
