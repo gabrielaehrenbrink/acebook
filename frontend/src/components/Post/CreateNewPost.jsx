@@ -35,6 +35,8 @@ const CreateNewPost = ({ token, setPostChanged }) => {
         try {
             const result = await createPost(token, formData);
             setPostChanged(true)
+            setMessage("")
+            setImage("")
             // console.log(result);
             // Optionally, you can update the state or perform any other actions after creating the post.
         } catch (error) {
