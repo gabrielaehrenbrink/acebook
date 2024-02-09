@@ -28,6 +28,7 @@ export const SettingsPage = () => {
         setFormData({
           full_name: data.user.full_name,
           email: data.user.email,
+          about_me: data.user.about_me,
         });
       })
       .catch((error) => {
@@ -54,16 +55,16 @@ if (successMessage || errorMessage) {
   };
 
   const handleUpdate = async (e) => {
-  e.preventDefault(); // Prevent default form submission behavior
+  e.preventDefault(); 
   const updateData = new FormData();
-  updateData.append("full_name", formData.full_name); // Append form data to FormData
+  updateData.append("full_name", formData.full_name); 
   updateData.append("email", formData.email);
-  // updateData.append("profile_pic", profilePic); // Append profile picture file if selected
+  updateData.append("about_me", formData.about_me);
   if (profilePic) {
-    updateData.append("profile_pic", profilePic); // Append profile picture file if selected
+    updateData.append("profile_pic", profilePic); 
   }
   try {
-    await updateUser(token, id, updateData); // updateUser should be adapted to handle FormData
+    await updateUser(token, id, updateData); 
     setSuccessMessage("Profile updated successfully");
     setTimeout(() => setSuccessMessage(""), 2000);
   } catch (error) {

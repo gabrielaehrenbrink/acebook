@@ -71,17 +71,23 @@ export const ProfilePage = () => {
     return (
         <>
         <Navbar />
-        {myProfilePage() && (<h1>My Profile</h1>)}
+        {myProfilePage() && (<h1 class="profile-h1">My Profile</h1>)}
         
         <div className="profile">
             <div className="details-and-friend-container">
                 <img src={user.profile_pic} alt="profile pic" className="profilePage_user_picture"/>
                 <div className="user-details">
-                    <p>Username: {user.full_name}</p>
+                    <h3>{user.full_name}</h3>
                     <br />
-                    <p>Email: {user.email}</p>
+                    <h4>Email:</h4>
+                    <p>{user.email}</p>
                     <br />
-                    {user.about_me && <p>About Me: {user.about_me}</p>}
+                    {user.about_me && (
+                        <div className="about-me-div">
+                            <h4>About Me:</h4>
+                            <p>{user.about_me}</p>
+                        </div>
+                        )}
                 </div>
                 {!myProfilePage() && (
                     <button className="befriend-unfriend-button" onClick={handleFriendshipChange}>
@@ -96,7 +102,7 @@ export const ProfilePage = () => {
                     <FriendList userId={userId}/>
                 </div>
                 <div className="posts-by-user">
-                    {myProfilePage() ? <h2>My posts</h2> : <h2>Posts</h2>}
+                    {myProfilePage() ? <h2 class="my-posts-title">My posts</h2> : <h2>Posts</h2>}
                     {[...posts].reverse().map((post) => (
                         <Post post={post} key={post._id} token={token} />
                     ))}
