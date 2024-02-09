@@ -71,7 +71,7 @@ export const ProfilePage = () => {
     return (
         <>
         <Navbar />
-        {myProfilePage() && (<h1>My Profile</h1>)}
+        {myProfilePage() && (<h1 class="profile-h1">My Profile</h1>)}
         
         <div className="profile">
             <div className="details-and-friend-container">

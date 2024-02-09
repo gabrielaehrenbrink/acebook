@@ -1,9 +1,8 @@
 .profilePage_user_picture {
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
   border: 2px solid #1877f2;
-  margin-left: 20px;
   object-fit: cover;
 }
 
@@ -17,15 +16,15 @@
 }
 
 .profile .user-details {
-  margin-top: 20px; /* Adjust the top margin as needed */
+  margin-top: 80px; 
+  margin-bottom: 50px;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  max-width: 60%;
   width: 80%;
-  max-width: 210px;
+  max-width: 500px;
   position: absolute;
   left: 50%;
   transform: translate(-50%);
@@ -154,9 +153,13 @@
 
 .friendlist {
   /* position: absolute; */
-  margin-left: 20px;
+  margin-left: 70px;
   margin-top: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
   /* transform: translateX(-50%); */
+}
+
+.profile-h1 {
+  margin-bottom: 100px;
 }
