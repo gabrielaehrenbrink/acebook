@@ -2,7 +2,7 @@ const { generateToken, decodeToken } = require("../../lib/token");
 
 describe("TokenGenerator", () => {
   describe("jsonwebtoken", () => {
-    test("returns a token containing user_id that is valid for 10 minutes", () => {
+    test("returns a token containing user_id that is valid for 24 hrs", () => {
       const id_1 = 1;
       const id_2 = 2;
 
