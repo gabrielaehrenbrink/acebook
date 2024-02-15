@@ -97,8 +97,8 @@ export const FeedPage = () => {
     <>
       <Navbar />
 
-      <div className="posts-and-friends-container">
-        <div className="friendlist">
+      <div className="posts-and-friends-container-feed">
+        <div className="friendlist-feed">
             <br></br>
             <h2>My Friends</h2>
             <FriendList userId={id}/>

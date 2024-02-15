@@ -29,6 +29,19 @@ Acebook is a full-featured social networking web application inspired by Faceboo
 - Jehoshua - https://github.com/AVJehoshua
 - Fawaz Tarar - https://github.com/Fawaztarar
 
+## Application
+
+|   Description    |   Image    |
+|:------------:|:----------------:|
+|Landing Page| ![](docs/images/landing.png)|
+|Sign Up Page| ![](docs/images/sign-up.png)|
+|Login Page| ![](docs/images/login.png)|
+|Profile Page| ![](docs/images/profile.png)|
+|Settings Page| ![](docs/images/settings.png)|
+|Posts Page| ![](docs/images/posts.png)|
+|Comment Post| ![](docs/images/comment.png)|
+|Like Comment| ![](docs/images/like.png)|
+
 
 
 ## Acknowledgments
