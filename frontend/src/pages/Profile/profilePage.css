@@ -16,7 +16,7 @@
 }
 
 .profile .user-details {
-  margin-top: 80px; 
+  margin-top: 20%; 
   margin-bottom: 50px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -34,13 +34,13 @@
 }
 
 .user-details h4 {
-  margin-bottom: 5px; /* Adjust as needed */
-  width: 30%; /* Set a specific width for the h4 */
+  margin-bottom: 5px; 
+  width: 30%; 
 }
 
 .user-details h3 {
-  margin-bottom: 5px; /* Adjust as needed */
-  width: 100%; /* Set a specific width for the h4 */
+  margin-bottom: 5px; 
+  width: 100%; 
 }
 
 .user-details p {
@@ -48,26 +48,22 @@
   text-align: justify;
   padding-left: 3%;
   padding-right: 3%;
-  width: 70%; /* Set a specific width for the p */
-  margin-left: auto; /* Align the p to the right */
+  width: 70%; 
+  margin-left: auto; 
 }
 
 
 .posts-by-user {
   position: absolute;
-  margin-top: 20px; /* Adjust the top margin as needed */
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 600px;
-  padding: 20px 0; /* Add vertical padding for better spacing */
   left: 50%;
   transform: translateX(-50%);
 }
 
-.posts-by-user .post {
-  width: 500px;
-}
+
 
 .settings {
   max-width: 600px;
@@ -159,31 +155,74 @@
   align-items: center;
 }
 
-.posts-and-friends-container {
-  display: flex;
-  width: 100%;
-  flex-direction: row;
-  justify-content: space-between;
-  /* align-items: center; */
-}
-
-.friendlist {
-  /* position: absolute; */
-  margin-left: 70px;
-  margin-top: 20px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  /* transform: translateX(-50%); */
-}
-
-.profile-h1 {
-  margin-bottom: 130px;
-}
-
-.my-posts-title {
-  margin-top: 100px;
-}
 
 .about-me-div {
   width: 100%;
 }
+
+.friendlist {
+  margin-right: 65%;
+  padding: 10px;
+}
+
+
+.posts-by-user {
+  margin-top: 30%;
+  padding: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.posts-by-user .post {
+  width: 500px;
+}
+
+
+@media (max-width: 1280px) {
+    .profile .user-details {
+      width: 90%;
+      max-width: none;
+      margin-top: 10%;
+      position: static;
+      transform: none;
+    }
+  
+    .profilePage_user_picture {
+      order: -1; 
+      margin-bottom: 20px; 
+    }
+  
+    .details-and-friend-container {
+      width: 100%;
+      justify-content: center;
+      margin-right: 0; 
+      position: static;
+      transform: none;
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .friendlist {
+      margin-right: 0;
+    }
+  
+    .user-details h4,
+    .user-details h3,
+    .user-details p {
+      width: 90%;
+    }
+  
+    .posts-by-user {
+      margin-top: 20%;
+      position: static;
+      transform: none;
+    }
+  
+    .posts-by-user .post {
+      width: 100%;
+    }
+  }

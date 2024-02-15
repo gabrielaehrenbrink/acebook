@@ -59,12 +59,8 @@ export const ProfilePage = () => {
         const action = isFriend ? unfriend : befriend;
         action(token, userId)
             .then(() => {
-                setIsFriend(!isFriend); // Toggle the isFriend state
+                setIsFriend(!isFriend); 
             })
-            // .catch((error) => {
-            //     setIsFriend(currentIsFriend => !currentIsFriend);
-            //     console.error(`Failed to ${isFriend ? "remove" : "add"} friend:`, error);
-            // });
     };
     
 
@@ -95,7 +91,6 @@ export const ProfilePage = () => {
                     </button>
                 )}
             </div>
-            <div className="posts-and-friends-container">
                 <div className="friendlist">
                     <br></br>
                     {myProfilePage() ? <h2>My Friends</h2> : <h2>Friends</h2>}
@@ -108,7 +103,6 @@ export const ProfilePage = () => {
                     ))}
                 </div>
             </div>
-        </div>
         </>
     )
 };

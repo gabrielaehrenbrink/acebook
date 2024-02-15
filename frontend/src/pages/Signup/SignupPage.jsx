@@ -103,7 +103,7 @@ export const SignupPage = () => {
           type="text"
           value={full_name}
           onChange={handleFullNameChange}
-          required="true"
+          required={true}
         />
         </div>
 
@@ -114,7 +114,7 @@ export const SignupPage = () => {
           type="text"
           value={email}
           onChange={handleEmailChange}
-          required="true"
+          required={true}
         />
         </div>
 
@@ -126,7 +126,7 @@ export const SignupPage = () => {
           type="password"
           value={password}
           onChange={handlePasswordChange}
-          required="true"        />
+          required={true}        />
         </div>
         <p className="error-message">{errorMessage}</p>
         <input role="submit-button" id="submit" type="submit" value="Submit" />
